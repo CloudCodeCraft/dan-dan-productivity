@@ -1,2 +1,24 @@
 /web/node_modules
 /web/dist
+backend/.docker/bundle
+
+# Rails backend
+/backend/.bundle
+/backend/.kamal/secrets*
+/backend/config/master.key
+/backend/config/credentials/*.key
+/backend/db/*.sqlite3
+/backend/db/*.sqlite3-*
+/backend/log/*
+!/backend/log/.keep
+/backend/public/assets
+/backend/storage/*
+!/backend/storage/.keep
+/backend/tmp/cache/*
+/backend/tmp/pids/*
+!/backend/tmp/pids/.keep
+/backend/tmp/sockets/*
+/backend/tmp/storage/*
+!/backend/tmp/storage/.keep
+/backend/tmp/restart.txt
+/backend/vendor/bundle

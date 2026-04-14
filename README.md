@@ -13,3 +13,9 @@ npm install <NEW_PACKAGE>
 docker compose -f dev.compose.yml build --no-cache
 docker compose -f dev.compose.yml up
 ```
+
+## Logging into backend shell
+
+```bash
+docker compose -f dev.compose.yml exec backend bash
+```
