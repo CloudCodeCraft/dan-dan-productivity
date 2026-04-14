@@ -10,6 +10,7 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
 
 ENV GEM_HOME=/usr/local/bundle
 ENV BUNDLE_PATH=/usr/local/bundle
+ENV BUNDLE_BIN=/usr/local/bundle/bin
 ENV PATH="/usr/local/bundle/bin:${PATH}"
 
 WORKDIR /backend

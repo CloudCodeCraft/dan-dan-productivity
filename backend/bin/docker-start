@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+bundle check || bundle install
+
+mkdir -p /usr/local/bundle/bin
+
+# Symlink the app's binstubs into the stable bin dir already on PATH so
+# interactive shells can resolve commands like `rails` without bundle exec.
+for executable in /backend/bin/*; do
+  [ -f "$executable" ] || continue
+  [ -x "$executable" ] || continue
+  ln -sf "$executable" "/usr/local/bundle/bin/$(basename "$executable")"
+done
+
+rm -f tmp/pids/server.pid
+
+exec bundle exec rails server -b 0.0.0.0 -p 3000

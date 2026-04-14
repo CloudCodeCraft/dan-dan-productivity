@@ -28,10 +28,11 @@ services:
     environment:
       RAILS_ENV: development
       DATABASE_URL: postgres://postgres:postgres@db:5432/dan_dan_backend_development
+      BUNDLE_BIN: /usr/local/bundle/bin
     depends_on:
       db:
         condition: service_healthy
-    command: bash -c "bundle check || bundle install && rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0 -p 3000"
+    command: bash -c "./bin/docker-start"
 
   db:
     image: postgres:16
