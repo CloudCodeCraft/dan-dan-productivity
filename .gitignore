@@ -22,3 +22,4 @@ backend/.docker/bundle
 !/backend/tmp/storage/.keep
 /backend/tmp/restart.txt
 /backend/vendor/bundle
+/backend/.nvim*
