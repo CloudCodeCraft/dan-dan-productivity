@@ -19,3 +19,18 @@ docker compose -f dev.compose.yml up
 ```bash
 docker compose -f dev.compose.yml exec backend bash
 ```
+
+## Starting the project with Ruby Debugger in mind
+
+```bash
+docker compose up -d db web
+docker compose -f dev.compose.yml run --service-ports backend bash
+./bin/docker-start
+```
+
+## Rubocop Autoformat
+
+```bash
+docker compose -f dev.compose.yml exec backend bash
+bundle exec rubocop -A spec/
+```
