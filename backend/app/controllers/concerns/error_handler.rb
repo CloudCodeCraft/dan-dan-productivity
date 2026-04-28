@@ -6,6 +6,10 @@ module ErrorHandler
     ActiveRecord::RecordInvalid => :unprocessable_entity,
     ActiveRecord::RecordNotSaved => :unprocessable_entity,
     ActiveRecord::RecordNotUnique => :unprocessable_entity,
+    EmailAlreadyInUseError => :unprocessable_entity,
+    PasswordNotValidError => :unprocessable_entity,
+    PasswordsDoNotMatchError => :unprocessable_entity,
+    UserNotFoundError => :unprocessable_entity,
     ActionController::ParameterMissing => :bad_request,
 
     ArgumentError => :bad_request,
@@ -25,18 +29,19 @@ module ErrorHandler
 
   private
 
- def status_for(exception)
-  ERROR_STATUS_MAP.each do |klass, status|
-    return status if exception.is_a?(klass)
+  def status_for(exception)
+    ERROR_STATUS_MAP.each do |klass, status|
+      return status if exception.is_a?(klass)
+    end
+
+    raise "Unmapped error: #{exception.class}" if Rails.env.development?
+
+    :internal_server_error
   end
 
-  raise "Unmapped error: #{exception.class}" if Rails.env.development?
-
-  :internal_server_error
-end
-
   def error_message_for(exception)
-    if exception.is_a?(ActiveRecord::RecordInvalid)
+    if exception.is_a?(ActiveRecord::ActiveRecordError)
+      debugger
       exception.record.errors.full_messages.join(", ")
     else
       exception.message

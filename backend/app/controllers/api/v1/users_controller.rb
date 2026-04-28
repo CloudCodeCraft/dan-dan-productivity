@@ -1,13 +1,15 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      before_action :set_user, only: %i[ update destroy ]
+      before_action :set_user, only: %i[update destroy]
 
-      # POST /api/v1/users
       def create
-        @user = User.new(user_params)
-        @user.save!
-        render json: @user.attributes.except(:password_digest), status: :created
+        user = UserCreationService.run!(
+          email: user_params[:email],
+          password: user_params[:password],
+          password_confirmation: user_params[:password_confirmation]
+        )
+        render json: user.attributes.except(:password_digest), status: :created
       end
 
       # PATCH/PUT /api/v1/users/1
