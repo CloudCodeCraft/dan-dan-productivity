@@ -23,3 +23,5 @@ backend/.docker/bundle
 /backend/tmp/restart.txt
 /backend/vendor/bundle
 /backend/.nvim*
+
+frontend/node_modules/
