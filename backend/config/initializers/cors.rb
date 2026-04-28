@@ -1,16 +1,27 @@
 # Be sure to restart your server when you modify this file.
 
-# Avoid CORS issues when API is called from the frontend app.
-# Handle Cross-Origin Resource Sharing (CORS) in order to accept cross-origin Ajax requests.
+# Allow the local frontend to call the API in development. Override with
+# CORS_ALLOWED_ORIGINS=http://localhost:5173,http://example.test as needed.
+allowed_origins =
+  ENV.fetch("CORS_ALLOWED_ORIGINS") do
+    if Rails.env.development?
+      "http://localhost:5173,http://127.0.0.1:5173"
+    else
+      ""
+    end
+  end
+    .split(",")
+    .map(&:strip)
+    .reject(&:empty?)
 
-# Read more: https://github.com/cyu/rack-cors
+if allowed_origins.any?
+  Rails.application.config.middleware.insert_before 0, Rack::Cors do
+    allow do
+      origins(*allowed_origins)
 
-# Rails.application.config.middleware.insert_before 0, Rack::Cors do
-#   allow do
-#     origins "example.com"
-#
-#     resource "*",
-#       headers: :any,
-#       methods: [:get, :post, :put, :patch, :delete, :options, :head]
-#   end
-# end
+      resource "/api/*",
+        headers: :any,
+        methods: %i[get post put patch delete options head]
+    end
+  end
+end

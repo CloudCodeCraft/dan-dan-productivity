@@ -1,14 +1,18 @@
 import { createBrowserRouter } from "react-router";
-import RootPage from "@/pages/RootPage";
 import RootLayout from "@/layouts/RootLayout";
-import TimerPage from "@/pages/TimerPage"
+import RootPage from "@/pages/RootPage";
+import TimerPage from "@/pages/TimerPage";
+import SignUpPage from "@/pages/SignUpPage";
+import LoginPage from "@/pages/LoginPage";
 
 const router = createBrowserRouter([
   {
     Component: RootLayout,
     children: [
       { index: true, Component: RootPage },
-      { path: 'timer', Component: TimerPage }
+      { path: "timer", Component: TimerPage },
+      { path: "signup", Component: SignUpPage},
+      { path: "login", Component: LoginPage }
     ],
   },
 ]);

@@ -40,11 +40,10 @@ RSpec.describe 'API V1 Users', type: :request do
           properties: {
             id: { type: :integer },
             email: { type: :string, format: :email },
-            password_digest: { type: :string },
             created_at: { type: :string, format: 'date-time' },
             updated_at: { type: :string, format: 'date-time' }
           },
-          required: %w[id email password_digest created_at updated_at],
+          required: %w[id email created_at updated_at],
           additionalProperties: false
 
         run_test! do |response|

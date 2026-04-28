@@ -11,7 +11,6 @@ module Api
       private
 
       def create_params
-        debugger
         params.expect(user: [:email, :password])
       end
     end

@@ -7,7 +7,7 @@ module Api
       def create
         @user = User.new(user_params)
         @user.save!
-        render json: @user, status: :created
+        render json: @user.attributes.except(:password_digest), status: :created
       end
 
       # PATCH/PUT /api/v1/users/1
@@ -28,7 +28,7 @@ module Api
       end
 
       def user_params
-        params.expect(user: [ :email, :password, :password_confirmation ])
+        params.expect(user: %i[email password password_confirmation])
       end
     end
   end
