@@ -10,6 +10,7 @@ module ErrorHandler
     PasswordNotValidError => :unprocessable_entity,
     PasswordsDoNotMatchError => :unprocessable_entity,
     UserNotFoundError => :unprocessable_entity,
+    EmailNotValidError => :unprocessable_entity,
     ActionController::ParameterMissing => :bad_request,
 
     ArgumentError => :bad_request,
@@ -41,7 +42,6 @@ module ErrorHandler
 
   def error_message_for(exception)
     if exception.is_a?(ActiveRecord::ActiveRecordError)
-      debugger
       exception.record.errors.full_messages.join(", ")
     else
       exception.message
